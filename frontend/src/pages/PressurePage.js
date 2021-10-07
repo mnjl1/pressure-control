@@ -17,7 +17,18 @@ const PressurePage = ({ match }) => {
 
     return (
         <div className='pressure'>
-            <textarea defaultValue={pressure?.note}></textarea>
+            <div>
+                <h3>{pressure?.created}</h3>
+                <h3>Systolic Pressure: {pressure?.systolic_pressure}</h3>
+                <h3>Diastolic Pressure: {pressure?.diastolic_pressure}</h3>
+                <h3>Heart Rate: {pressure?.heart_rate}</h3>
+                <br/>
+                <p>&#9998;Note...</p>
+                <textarea defaultValue={pressure?.note}></textarea>
+            </div>
+            <div>
+                Weather data
+            </div>
         </div>
     )
 }

@@ -195,7 +195,7 @@ a {
 
 
 /*==============================
-=>  Note Styles
+=>  Pressure Styles
 ================================*/
 
 .pressure-header {
@@ -233,7 +233,7 @@ a {
   border: none;
   padding: 16px 12px;
   width: 100%;
-  height: 70vh;
+  height: 15vh;
   resize: none;
   scrollbar-width: none; /* Firefox */
 }
