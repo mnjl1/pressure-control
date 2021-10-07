@@ -1,7 +1,5 @@
 from django.db import models
 
-# Create your models here.
-
 class BloodPressure(models.Model):
     # TODO add uuid
     note = models.TextField(null=True, blank=True)
