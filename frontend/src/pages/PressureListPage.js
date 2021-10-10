@@ -20,7 +20,7 @@ const PressureListPage = () => {
     return (
         <div className="pressure-list">
             <div className='pressure-list-header'>
-                <h2 className="pressure-list-title">&#9825; Blood Pressure Notes:</h2>
+                <h2 className="pressure-list-title">&#9825; Total Notes:</h2>
                 <p className="presssure-list-count">{pressureList.length}</p>
             </div>
             <div className='pressure-list-list'>

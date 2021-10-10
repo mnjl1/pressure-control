@@ -54,3 +54,13 @@ def getPressure(request, pk):
     pressure = BloodPressure.objects.get(id=pk)
     serialiser = BloodPressureSerializer(pressure, many=False)
     return Response(serialiser.data)
+
+
+@api_view(['PUT'])
+def updatePressure(request, pk):
+    data = request.data
+    pressure = BloodPressure.objects.get(id=pk)
+    serializer = BloodPressureSerializer(instance=pressure, data=data)
+    if serializer.is_valid():
+        serializer.save()
+    return Response(serializer.data)
