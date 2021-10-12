@@ -56,11 +56,32 @@ def getPressure(request, pk):
     return Response(serialiser.data)
 
 
+@api_view(['POST'])
+def create_pressure(request):
+    data = request.data
+    pressure = BloodPressure.objects.create(
+        systolic_pressure = 121,
+        diastolic_pressure = 80,
+        heart_rate = 60,
+        note = data['note']
+        # note = 'note'
+    )
+    serializer = BloodPressureSerializer(pressure, many = False)
+    return Response(serializer.data)
+
+
 @api_view(['PUT'])
-def updatePressure(request, pk):
+def update_pressure(request, pk):
     data = request.data
     pressure = BloodPressure.objects.get(id=pk)
     serializer = BloodPressureSerializer(instance=pressure, data=data)
     if serializer.is_valid():
         serializer.save()
     return Response(serializer.data)
+
+
+@api_view(['DELETE'])
+def delete_pressure(request, pk):
+    pressure = BloodPressure.objects.get(id=pk)
+    pressure.delete()
+    return Response('Pressure was deleted')
