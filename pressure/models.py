@@ -1,7 +1,14 @@
 from django.db import models
+from django.conf import settings
+from django.contrib.auth import get_user_model
+
+from accounts.models import CustomUser
 
 class BloodPressure(models.Model):
     # TODO add uuid
+    person = models.ForeignKey(
+        get_user_model(),
+        on_delete=models.CASCADE,)
     systolic_pressure = models.IntegerField()
     diastolic_pressure = models.IntegerField()
     heart_rate = models.IntegerField()
