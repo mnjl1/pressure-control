@@ -14,12 +14,12 @@ services:
     environment:
       - "DJANGO_SECRET_KEY=django-insecure-5meaj#!c!!%sz#o8t3woq%rija51okeu%k)zbjy#if@@=!%l4w"
       - "DJANGO_DEBUG=True"
-      # - "DJANGO_SECURE_SSL_REDIRECT=False"
-      # - "DJANGO_SECURE_HSTS_SECONDS=0"
-      # - "DJANGO_SECURE_HSTS_INCLUDE_SUBDOMAINS=False"
-      # - "DJANGO_SECURE_HSTS_PRELOAD=False"
-      # - "DJANGO_SESSION_COOKIE_SECURE=False"
-      # - "DJANGO_CSRF_COOKIE_SECURE=False"
+      - "DJANGO_SECURE_SSL_REDIRECT=False"
+      - "DJANGO_SECURE_HSTS_SECONDS=0"
+      - "DJANGO_SECURE_HSTS_INCLUDE_SUBDOMAINS=False"
+      - "DJANGO_SECURE_HSTS_PRELOAD=False"
+      - "DJANGO_SESSION_COOKIE_SECURE=False"
+      - "DJANGO_CSRF_COOKIE_SECURE=False"
 
       - "GMAIL_PASSWORD=D@HBr&d5jqi8HSgj"
       - "OPEN_WEATHER_API_KEY=41351eb8499e283bfe2065c0d9bb52f1"
