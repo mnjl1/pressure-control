@@ -4,6 +4,7 @@ from rest_framework.decorators import api_view
 
 from .models import BloodPressure
 from .serializers import BloodPressureSerializer
+from weather.utils import get_weather, convert_weather, get_city_by_public_ip, get_client_ip
 
 @api_view(['GET'])
 def getRoutes(request):
@@ -59,12 +60,22 @@ def getPressure(request, pk):
 @api_view(['POST'])
 def create_pressure(request):
     data = request.data
+    ip = get_client_ip(request)
+    city = get_city_by_public_ip(ip)
+    units = request.user.metric
+    weather_now = get_weather(city, units)
+    weather = convert_weather(weather_now)
+    weather.save()
+    systolic_pressure = data['systolic_pressure']
+    diastolic_pressure = data['diastolic_pressure']
+    heart_rate = data['heart_rate']
+    note = data['note']
     pressure = BloodPressure.objects.create(
-        systolic_pressure = 121,
-        diastolic_pressure = 80,
-        heart_rate = 60,
-        note = data['note']
-        # note = 'note'
+        systolic_pressure = systolic_pressure,
+        diastolic_pressure = diastolic_pressure,
+        heart_rate = heart_rate,
+        note = note,
+        weather=weather
     )
     serializer = BloodPressureSerializer(pressure, many = False)
     return Response(serializer.data)

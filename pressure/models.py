@@ -1,8 +1,7 @@
 from django.db import models
 from django.conf import settings
 from django.contrib.auth import get_user_model
-
-from accounts.models import CustomUser
+from weather.models import Weather
 
 class BloodPressure(models.Model):
     # TODO add uuid
@@ -15,6 +14,8 @@ class BloodPressure(models.Model):
     note = models.TextField(null=True, blank=True)
     last_modified = models.DateTimeField(auto_now=True)
     created = models.DateTimeField(auto_now_add=True)
+    weather = models.OneToOneField(
+        Weather, on_delete=models.CASCADE, default=None)
 
     class Meta:
         ordering = ('-created',)
