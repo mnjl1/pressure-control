@@ -14,7 +14,7 @@ export const AuthProvider = ({children}) => {
     let [user, setUser] = useState(
         () => localStorage.getItem('authTokens') ? JSON.parse(localStorage.getItem('authTokens')) : null
     )
-    let [loading, setLoding] = useState(true)
+    let [loading, setLoading] = useState(true)
 
     const history = useHistory()
 
@@ -60,12 +60,12 @@ export const AuthProvider = ({children}) => {
 
     let refreshToken = async () => {
         console.log('Refreshed')
-        let response = await fetch('/api/token/refresh', {
+        let response = await fetch('/api/token/refresh/', {
             method: "POST",
             headers: {
                 'Content-Type': 'application/json'
             },
-            'body': JSON.stringify({'refresh': authTokens.refresh})
+            'body': JSON.stringify({'refresh': authTokens?.refresh})
             }
         )
         let data = await response.json()
@@ -77,10 +77,15 @@ export const AuthProvider = ({children}) => {
         } else {
             logoutUser()
         }
+
+        if(loading){
+            setLoading(false)
+        }
     }
 
 
     let contextData = {
+        authTokens: authTokens,
         user: user,
         userLogin: userLogin,
         logoutUser: logoutUser

@@ -1,10 +1,12 @@
 from django.shortcuts import render
 from rest_framework.response import Response
-from rest_framework.decorators import api_view
+from rest_framework.decorators import api_view, permission_classes
+from rest_framework.permissions import IsAuthenticated
 
 from .models import BloodPressure
 from .serializers import BloodPressureSerializer
 from weather.utils import get_weather, convert_weather, get_city_by_public_ip, get_client_ip
+
 
 @api_view(['GET'])
 def getRoutes(request):
@@ -19,38 +21,42 @@ def getRoutes(request):
             'Endpoint': '/pressure/id',
             'method': 'GET',
             'body': None,
-            'description': 'Returns a single note object'
+            'description': 'Returns a single pressure object'
         },
         {
             'Endpoint': '/pressure/create/',
             'method': 'POST',
             'body': {'body': ""},
-            'description': 'Creates new note with data sent in post request'
+            'description': 'Creates new pressure with data sent in post request'
         },
         {
             'Endpoint': '/pressure/id/update/',
             'method': 'PUT',
             'body': {'body': ""},
-            'description': 'Creates an existing note with data sent in post request'
+            'description': 'Creates an existing pressure with data sent in post request'
         },
         {
             'Endpoint': '/pressure/id/delete/',
             'method': 'DELETE',
             'body': None,
-            'description': 'Deletes and exiting note'
+            'description': 'Deletes and exiting pressure'
         },
     ]
 	return Response(routes)
 
 
 @api_view(['GET'])
+@permission_classes([IsAuthenticated])
 def getPressureList(request):
-    pressure_list = BloodPressure.objects.all()
+    user = request.user
+    print(user)
+    pressure_list = BloodPressure.objects.filter(person=user)
     serialiser = BloodPressureSerializer(pressure_list, many=True)
     return Response(serialiser.data)
 
 
 @api_view(['GET'])
+@permission_classes([IsAuthenticated])
 def getPressure(request, pk):
     pressure = BloodPressure.objects.get(id=pk)
     serialiser = BloodPressureSerializer(pressure, many=False)
@@ -58,6 +64,7 @@ def getPressure(request, pk):
 
 
 @api_view(['POST'])
+@permission_classes([IsAuthenticated])
 def create_pressure(request):
     data = request.data
     ip = get_client_ip(request)
@@ -82,6 +89,7 @@ def create_pressure(request):
 
 
 @api_view(['PUT'])
+@permission_classes([IsAuthenticated])
 def update_pressure(request, pk):
     data = request.data
     pressure = BloodPressure.objects.get(id=pk)
@@ -92,6 +100,7 @@ def update_pressure(request, pk):
 
 
 @api_view(['DELETE'])
+@permission_classes([IsAuthenticated])
 def delete_pressure(request, pk):
     pressure = BloodPressure.objects.get(id=pk)
     pressure.delete()

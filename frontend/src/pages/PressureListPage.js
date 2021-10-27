@@ -1,10 +1,11 @@
-import React, {useState, useEffect} from 'react'
+import React, {useState, useEffect, useContext} from 'react'
 import ListItem from '../components/ListItem'
 import AddButton from '../components/AddButton'
+import AuthContext from '../context/AuthContext'
 
 
 const PressureListPage = () => {
-
+    let {authTokens, logoutUser} = useContext(AuthContext)
     let [pressureList, setPressureList] = useState([])
 
     useEffect(() => {
@@ -12,11 +13,23 @@ const PressureListPage = () => {
     }, [])
 
     let getPressureList = async () => {
-        let response = await fetch('/api/pressure/')
+        let response = await fetch('/api/pressure/', {
+            method: 'GET',
+            headers: {
+                'Content-Type': 'application/json',
+                'Authorization': 'Bearer ' + String(authTokens.access)
+            }
+        })
+
         let data = await response.json()
-        console.log('DATA', data)
-        setPressureList(data);
+
+        if (response.status === 200) {
+            setPressureList(data);
+        }else if (response.statusText === 'Unauthorized') {
+            logoutUser()
+        } 
     }
+
 
     return (
         <div className="pressure-list">
