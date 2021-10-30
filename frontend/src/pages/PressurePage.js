@@ -1,10 +1,12 @@
-import React, {useState, useEffect} from 'react'
+import React, {useState, useEffect, useContext} from 'react'
 import {ReactComponent as ArrowLeft} from '../assets/arrow-left.svg'
+import AuthContext from '../context/AuthContext';
 
 const PressurePage = ({ match, history }) => {
 
     let pressureId = match.params.id
     let [pressure, setPressure] = useState(null)
+    let {authTokens} = useContext(AuthContext)
 
 
     useEffect(() => {
@@ -15,7 +17,13 @@ const PressurePage = ({ match, history }) => {
     let getPressure = async () => {
         if (pressureId === 'new') return
 
-        let response = await fetch(`/api/pressure/${pressureId}/`)
+        let response = await fetch(`/api/pressure/${pressureId}/`, {
+            method: 'GET',
+            headers: {
+                'Content-Type': 'application/json',
+                'Authorization': 'Bearer ' + String(authTokens.access)
+            }
+        })
         let data = await response.json()
         setPressure(data)
     }
@@ -24,7 +32,8 @@ const PressurePage = ({ match, history }) => {
         fetch(`/api/pressure/create/`, {
             method: "POST",
             headers: {
-                'Content-Type': 'application/json'
+                'Content-Type': 'application/json',
+                'Authorization': 'Bearer ' + String(authTokens.access)
             },
             body: JSON.stringify(pressure)
         })
@@ -35,8 +44,9 @@ const PressurePage = ({ match, history }) => {
         fetch(`/api/pressure/${pressureId}/update/`, {
             method: 'PUT',
             headers: {
-                'Content-Type': 'application/json'
-            },
+                'Content-Type': 'application/json',
+                'Authorization': 'Bearer ' + String(authTokens.access)
+                },
             body: JSON.stringify(pressure)
         })
     }
@@ -46,7 +56,9 @@ const PressurePage = ({ match, history }) => {
         fetch(`/api/pressure/${pressureId}/delete/`, {
             method: 'DELETE',
             headers: {
-                'Content-Type': 'application/json'
+                "Content-Type": 'application/json',
+                'Authorization': 'Bearer ' + String(authTokens.access)
+                
             },
         })
         history.push('/')

@@ -78,9 +78,9 @@ def create_pressure(request):
     heart_rate = data['heart_rate']
     note = data['note']
     pressure = BloodPressure.objects.create(
-        systolic_pressure = systolic_pressure,
-        diastolic_pressure = diastolic_pressure,
-        heart_rate = heart_rate,
+        systolic_pressure = 120,
+        diastolic_pressure = 80,
+        heart_rate = 66,
         note = note,
         weather=weather
     )
