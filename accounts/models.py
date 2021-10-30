@@ -35,6 +35,17 @@ class CustomAccountManager(BaseUserManager):
 
 class CustomUser(AbstractBaseUser, PermissionsMixin):
 
+    METRIC_TYPE = (
+        ('CELSIUS', 'metric'),
+        ('FAHRENHEIT', 'imperial'),
+    )
+
+    metric = models.CharField(
+        choices=METRIC_TYPE,
+        max_length=10,
+        default='CELSIUS'
+    )
+
     email = models.EmailField(_('email address'), unique=True)
     start_date = models.DateTimeField(default=timezone.now)
     is_staff = models.BooleanField(default=False)

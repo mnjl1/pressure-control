@@ -1,4 +1,3 @@
-from django.shortcuts import render
 from rest_framework.response import Response
 from rest_framework.decorators import api_view, permission_classes
 from rest_framework.permissions import IsAuthenticated
@@ -78,9 +77,10 @@ def create_pressure(request):
     heart_rate = data['heart_rate']
     note = data['note']
     pressure = BloodPressure.objects.create(
-        systolic_pressure = 120,
-        diastolic_pressure = 80,
-        heart_rate = 66,
+        person = request.user,
+        systolic_pressure = systolic_pressure,
+        diastolic_pressure = diastolic_pressure,
+        heart_rate = heart_rate,
         note = note,
         weather=weather
     )

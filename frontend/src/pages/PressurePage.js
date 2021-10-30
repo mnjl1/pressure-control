@@ -76,10 +76,23 @@ const PressurePage = ({ match, history }) => {
         history.push('/')
     }
 
-    let handleChange = (value) => {
-        setPressure(pressure => ({ ...pressure, 'note': value }))
-        console.log('Change', pressure)
+    let handleSystolicPressureChange = (value) => {
+        setPressure(pressure => ({ ...pressure, 'systolic_pressure': value }))
     }
+
+
+    let handleDiastolicPressureChange = (value) => {
+        setPressure(pressure => ({ ...pressure, 'diastolic_pressure': value }))
+    }
+
+    let handleHeartRateChange = (value) => {
+        setPressure(pressure => ({ ...pressure, 'heart_rate': value }))
+    }
+
+    let handleNoteChange = (value) => {
+        setPressure(pressure => ({ ...pressure, 'note': value}))
+    }
+
 
 
     return (
@@ -97,12 +110,15 @@ const PressurePage = ({ match, history }) => {
             </div>
             <div>
                 <h3>{pressure?.created}</h3>
-                <h3>Systolic Pressure: {pressure?.systolic_pressure}</h3>
-                <h3>Diastolic Pressure: {pressure?.diastolic_pressure}</h3>
-                <h3>Heart Rate: {pressure?.heart_rate}</h3>
+                <p>&#9757;Systolic Pressure</p>
+                <input onChange={(e) => {handleSystolicPressureChange(e.target.value)}} value={pressure?.systolic_pressure} />
+                <p>&#9759;Diastolic Pressure</p>
+                <input onChange={(e) => {handleDiastolicPressureChange(e.target.value)}} value={pressure?.diastolic_pressure} />
+                <p>&#9825;Heart rate</p>
+                <input onChange={(e) => {handleHeartRateChange(e.target.value)}} value={pressure?.heart_rate} />
                 <br/>
                 <p>&#9998;Note...</p>
-                <textarea onChange={(e) => {handleChange(e.target.value)}} value={pressure?.note}></textarea>
+                <textarea onChange={(e) => {handleNoteChange(e.target.value)}} value={pressure?.note}></textarea>
             </div>
             <div>
                 Weather data

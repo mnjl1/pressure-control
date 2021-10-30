@@ -22,7 +22,7 @@ services:
       - "DJANGO_CSRF_COOKIE_SECURE=False"
 
       - "GMAIL_PASSWORD=D@HBr&d5jqi8HSgj"
-      - "OPEN_WEATHER_API_KEY=41351eb8499e283bfe2065c0d9bb52f1"
+      - "OPEN_WEATHER_API_KEY=999978a2123064ef14d3f5d50bb6ce28"
       - "IPSTACK_KEY=80c4d7be33d29dcfd1c6bb6e09e57506"
     
   # db:
