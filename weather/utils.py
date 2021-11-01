@@ -16,7 +16,6 @@ def get_weather(city, units):
 
 
 def convert_weather(weather_now):
-    print(weather_now)
     new_weather = Weather(city=weather_now['name'],
                           description=weather_now['weather'][0]['description'],
                           temperature=weather_now['main']['temp'],

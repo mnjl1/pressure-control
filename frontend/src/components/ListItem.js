@@ -2,7 +2,7 @@ import React from 'react'
 import {Link} from 'react-router-dom'
 
 
-export let getCreatedTime = (pressure) => {
+let getCreatedTime = (pressure) => {
     return new Date(pressure.created).toLocaleDateString()
 }
 

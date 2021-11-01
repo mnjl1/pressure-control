@@ -59,6 +59,7 @@ export const AuthProvider = ({children}) => {
 
 
     let refreshToken = async () => {
+        console.log('Refreshed')
         let response = await fetch('/api/token/refresh/', {
             method: "POST",
             headers: {
