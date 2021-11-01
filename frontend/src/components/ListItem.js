@@ -2,7 +2,7 @@ import React from 'react'
 import {Link} from 'react-router-dom'
 
 
-let getCreatedTime = (pressure) => {
+export let getCreatedTime = (pressure) => {
     return new Date(pressure.created).toLocaleDateString()
 }
 
@@ -24,6 +24,9 @@ const ListItem = ({pressure}) => {
                 <h3>&#9759; {pressure.diastolic_pressure}</h3>
                 <h3>&#9825; {pressure.heart_rate}</h3>
                 <h3>&#9998; {getTitle(pressure)}</h3> 
+            </div>
+            <div>
+
             </div>
         </Link>
     )

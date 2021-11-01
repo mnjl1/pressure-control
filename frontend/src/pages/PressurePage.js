@@ -26,6 +26,7 @@ const PressurePage = ({ match, history }) => {
         })
         let data = await response.json()
         setPressure(data)
+        console.log('Pressure', data)
     }
 
     let createPressure = async () => {
@@ -94,7 +95,6 @@ const PressurePage = ({ match, history }) => {
     }
 
 
-
     return (
         <div className='pressure'>
             <div className="pressure-header">
@@ -109,7 +109,7 @@ const PressurePage = ({ match, history }) => {
                 
             </div>
             <div>
-                <h3>{pressure?.created}</h3>
+                {/* <h1>{pressure?.created}</h1>
                 <p>&#9757;Systolic Pressure</p>
                 <input onChange={(e) => {handleSystolicPressureChange(e.target.value)}} value={pressure?.systolic_pressure} />
                 <p>&#9759;Diastolic Pressure</p>
@@ -117,11 +117,8 @@ const PressurePage = ({ match, history }) => {
                 <p>&#9825;Heart rate</p>
                 <input onChange={(e) => {handleHeartRateChange(e.target.value)}} value={pressure?.heart_rate} />
                 <br/>
-                <p>&#9998;Note...</p>
+                <p>&#9998;Note...</p> */}
                 <textarea onChange={(e) => {handleNoteChange(e.target.value)}} value={pressure?.note}></textarea>
-            </div>
-            <div>
-                Weather data
             </div>
         </div>
     )
