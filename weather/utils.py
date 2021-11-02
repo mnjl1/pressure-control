@@ -5,7 +5,7 @@ from .models import Weather
 from config.settings import WEATHER_KEY, IPSTACK_KEY
 
 def get_weather(city, units):
-    # TODO move open weather stack access key to environs
+    
     url = f'http://api.openweathermap.org/data/2.5/weather?q={city}&units={units}&appid={WEATHER_KEY}'
     
     try:
