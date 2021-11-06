@@ -22,6 +22,7 @@ const PressureListPage = () => {
         })
 
         let data = await response.json()
+        console.log('Data', data)
 
         if (response.status === 200) {
             setPressureList(data);

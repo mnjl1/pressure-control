@@ -1,18 +1,27 @@
 import React, {useState, useEffect, useContext} from 'react'
 import {ReactComponent as ArrowLeft} from '../assets/arrow-left.svg'
 import AuthContext from '../context/AuthContext';
+import axios from 'axios'
 
 const PressurePage = ({ match, history }) => {
 
     let pressureId = match.params.id
     let [pressure, setPressure] = useState(null)
+    let [city, setCity] = useState('')
     let {authTokens} = useContext(AuthContext)
+    
 
 
     useEffect(() => {
+        getClientCity()
         getPressure()
     }, [pressureId])
 
+    let getClientCity = async () => {
+        let info = await axios.get('https://geolocation-db.com/json/'
+        )
+        setCity(info.data.city)
+    }
 
     let getPressure = async () => {
         if (pressureId === 'new') return
@@ -30,6 +39,7 @@ const PressurePage = ({ match, history }) => {
     }
 
     let createPressure = async () => {
+        setPressure(pressure['city'] = city)
         fetch(`/api/pressure/create/`, {
             method: "POST",
             headers: {
@@ -81,7 +91,6 @@ const PressurePage = ({ match, history }) => {
         setPressure(pressure => ({ ...pressure, 'systolic_pressure': value }))
     }
 
-
     let handleDiastolicPressureChange = (value) => {
         setPressure(pressure => ({ ...pressure, 'diastolic_pressure': value }))
     }
@@ -119,6 +128,9 @@ const PressurePage = ({ match, history }) => {
                 <br/>
                 <p>&#9998;Note...</p>
                 <textarea onChange={(e) => {handleNoteChange(e.target.value)}} value={pressure?.note}></textarea>
+            </div>
+            <div>
+            
             </div>
         </div>
     )

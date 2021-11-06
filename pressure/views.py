@@ -4,8 +4,7 @@ from rest_framework.permissions import IsAuthenticated
 
 from .models import BloodPressure
 from .serializers import BloodPressureSerializer
-from weather.utils import get_weather, convert_weather, get_city_by_public_ip, get_client_ip
-
+from weather.utils import get_weather, convert_weather
 
 @api_view(['GET'])
 def getRoutes(request):
@@ -66,8 +65,11 @@ def getPressure(request, pk):
 @permission_classes([IsAuthenticated])
 def create_pressure(request):
     data = request.data
-    ip = get_client_ip(request)
-    city = get_city_by_public_ip(ip)
+    print(data)
+    # ip = get_client_ip(request)
+    # ip = data['ip']
+    # city = get_city_by_public_ip(ip)
+    city = data['city']
     units = request.user.metric
     weather_now = get_weather(city, units)
     weather = convert_weather(weather_now)
