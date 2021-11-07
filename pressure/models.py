@@ -11,7 +11,6 @@ class BloodPressure(models.Model):
     systolic_pressure = models.IntegerField()
     diastolic_pressure = models.IntegerField()
     heart_rate = models.IntegerField()
-    note = models.TextField(null=True, blank=True, default='')
     last_modified = models.DateTimeField(auto_now=True)
     created = models.DateTimeField(auto_now_add=True)
     weather = models.OneToOneField(

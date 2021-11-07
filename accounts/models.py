@@ -35,15 +35,15 @@ class CustomAccountManager(BaseUserManager):
 
 class CustomUser(AbstractBaseUser, PermissionsMixin):
 
-    METRIC_TYPE = (
-        ('CELSIUS', 'metric'),
-        ('FAHRENHEIT', 'imperial'),
-    )
+    class MetricType(models.TextChoices):
+        CELSIUS = 'metric'
+        FAHRENHEIT = 'imperial'
+    
 
     metric = models.CharField(
-        choices=METRIC_TYPE,
+        choices=MetricType.choices,
         max_length=10,
-        default='CELSIUS'
+        default=MetricType.CELSIUS
     )
 
     email = models.EmailField(_('email address'), unique=True)

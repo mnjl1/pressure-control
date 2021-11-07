@@ -65,24 +65,20 @@ def getPressure(request, pk):
 def create_pressure(request):
     data = request.data
     print(data)
-    # ip = get_client_ip(request)
-    # ip = data['ip']
-    # city = get_city_by_public_ip(ip)
     city = data['city']
     units = request.user.metric
+    print('Units', units)
     weather_now = get_weather(city, units)
     weather = convert_weather(weather_now)
     weather.save()
     systolic_pressure = data['systolic_pressure']
     diastolic_pressure = data['diastolic_pressure']
     heart_rate = data['heart_rate']
-    note = data['note']
     pressure = BloodPressure.objects.create(
         person = request.user,
         systolic_pressure = systolic_pressure,
         diastolic_pressure = diastolic_pressure,
         heart_rate = heart_rate,
-        note = note,
         weather=weather
     )
     serializer = BloodPressureSerializer(pressure, many = False)
