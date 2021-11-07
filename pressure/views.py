@@ -47,7 +47,6 @@ def getRoutes(request):
 @permission_classes([IsAuthenticated])
 def getPressureList(request):
     user = request.user
-    print(user)
     pressure_list = BloodPressure.objects.filter(person=user)
     serialiser = BloodPressureSerializer(pressure_list, many=True)
     return Response(serialiser.data)

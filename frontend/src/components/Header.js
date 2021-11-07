@@ -7,7 +7,7 @@ const Header = () => {
     
     return (
         <div className="app-header">
-            <h1>Blood pressure list</h1>
+            <h2>Blood pressure</h2>
             <Link to="/">Home</Link>
             <span> | </span>
             {user ? (

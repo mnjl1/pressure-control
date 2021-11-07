@@ -119,37 +119,39 @@ const PressurePage = ({ match, history }) => {
                 
             </div>
 
-            <div>
-                <h1>{pressure?.created}</h1>
-                <p>&#9757;Systolic Pressure</p>
-                <input onChange={(e) => {handleSystolicPressureChange(e.target.value)}} value={pressure?.systolic_pressure} />
-                <p>&#9759;Diastolic Pressure</p>
-                <input onChange={(e) => {handleDiastolicPressureChange(e.target.value)}} value={pressure?.diastolic_pressure} />
-                <p>&#9825;Heart rate</p>
-                <input onChange={(e) => {handleHeartRateChange(e.target.value)}} value={pressure?.heart_rate} />
-                <br/>
-                <p>&#9998;Note...</p>
-                <textarea onChange={(e) => {handleNoteChange(e.target.value)}} value={pressure?.note}></textarea>
-            </div>
-            {
-                pressureId !== "new" ? (
-                    <div>
-                        <img sizes='100px'
-                            src={`http://openweathermap.org/img/w/${pressure?.weather.icon}.png`}
-                            alt="weather status icon"
-                            className="weather-icon"
-                        />
-                        <p>{pressure?.weather.city}</p>
-                        <p>{pressure?.weather.temperature}</p>
-                        <p>{pressure?.weather.humidity}</p>
-                        <p>{pressure?.weather.atmosphere_pressure}</p>
+                <div>
+                    <h1>{pressure?.created}</h1>
+                    <p>&#9757;Systolic Pressure</p>
+                    <input onChange={(e) => {handleSystolicPressureChange(e.target.value)}} value={pressure?.systolic_pressure} />
+                    <p>&#9759;Diastolic Pressure</p>
+                    <input onChange={(e) => {handleDiastolicPressureChange(e.target.value)}} value={pressure?.diastolic_pressure} />
+                    <p>&#9825;Heart rate</p>
+                    <input onChange={(e) => {handleHeartRateChange(e.target.value)}} value={pressure?.heart_rate} />
+                    <br/>
+                    <p>&#9998;Note...</p>
+                    <textarea onChange={(e) => {handleNoteChange(e.target.value)}} value={pressure?.note}></textarea>
+                </div>
+                <div>
+                    {
+                    pressureId !== "new" ? (
+                        <div>
+                            <img sizes='100px'
+                                src={`http://openweathermap.org/img/w/${pressure?.weather.icon}.png`}
+                                alt="weather status icon"
+                                className="weather-icon"
+                            />
+                            <p>{pressure?.weather.city}</p>
+                            <p>{pressure?.weather.temperature}</p>
+                            <p>Humidity: {pressure?.weather.humidity}</p>
+                            <p>Atmosphere pressure: {pressure?.weather.atmosphere_pressure}</p>
+                        </div>
+                    ) : (
+                        <div>
+                        </div>
+                    )
+                }
                     </div>
-                ) : (
-                    <div></div>
-                )
-            }
-            
-        </div>
+                </div>
     )
 }
 

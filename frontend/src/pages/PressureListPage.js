@@ -38,6 +38,7 @@ const PressureListPage = () => {
                 <h2 className="pressure-list-title">&#9825; Total Notes:</h2>
                 <p className="presssure-list-count">{pressureList.length}</p>
             </div>
+
             <div className='pressure-list-list'>
                 {pressureList.map((pressure, index) => (
                     <ListItem key={index} pressure={pressure}/>
