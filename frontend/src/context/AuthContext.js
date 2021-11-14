@@ -18,6 +18,26 @@ export const AuthProvider = ({children}) => {
 
     const history = useHistory()
 
+    let userRegister = async (e) => {
+        e.preventDefault()
+
+        let response = await fetch('/api/accounts/register/', {
+            method: "POST",
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            'body': JSON.stringify({
+                'email': e.target.email.value,
+                'password': e.target.password.value}),
+                'metric': e.target.metric.value
+            }
+        )
+
+        if (response.status == 201) {
+            history.push('/login')
+        }
+    }
+
     let userLogin = async (e) => {
 
         e.preventDefault()
@@ -87,7 +107,8 @@ export const AuthProvider = ({children}) => {
         authTokens: authTokens,
         user: user,
         userLogin: userLogin,
-        logoutUser: logoutUser
+        logoutUser: logoutUser,
+        userRegister: userRegister
     }
 
     useEffect(() => {

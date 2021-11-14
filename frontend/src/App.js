@@ -11,6 +11,7 @@ import Header from './components/Header';
 import PressureListPage from './pages/PressureListPage';
 import PressurePage from "./pages/PressurePage";
 import LoginPage from './pages/LoginPage';
+import RegisterPage from './pages/RegisterPage';
 
 
 
@@ -24,6 +25,7 @@ function App() {
        <Header />
           <PrivateRoute path='/' exact component={PressureListPage} />
           <Route path='/login' component={LoginPage} />
+          <Route path="/register" component={RegisterPage} />
           <Route path='/pressure/:id' component={PressurePage} />
       </div>
     </div>
