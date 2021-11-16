@@ -10,11 +10,13 @@ class CustomUserCreate(APIView):
     permission_classes = [AllowAny]
 
     def post(self, request, format='json'):
+        print('Request', request.data)
         serializer = CustomUserSerializer(data=request.data)
         if serializer.is_valid():
             user = serializer.save()
             if user:
                 json = serializer.data
+                print('Json', json)
                 return Response(json, status=status.HTTP_201_CREATED)
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 

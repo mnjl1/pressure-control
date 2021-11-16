@@ -24,13 +24,13 @@ const ListItem = ({pressure}) => {
                 </Col>
                 <Col>
                     <div className='pressure-list-list-item'>
-                            <img sizes='100px'
+                            <img sizes='200px'
                                 src={`http://openweathermap.org/img/w/${pressure?.weather.icon}.png`}
                                 alt="weather status icon" />
-                            <h3>{pressure?.weather.city}</h3>
-                            <h3>{pressure?.weather.temperature}</h3>
-                            <h3>Humidity: {pressure?.weather.humidity}</h3>
-                            <h3>Atmosphere pressure: {pressure?.weather.atmosphere_pressure}</h3>
+                            <h4>{pressure?.weather.city}</h4>
+                            <h4>{pressure?.weather.temperature}</h4>
+                            <h4>Humidity: {pressure?.weather.humidity}</h4>
+                            <h4>Atmosphere pressure: {pressure?.weather.atmosphere_pressure}</h4>
                     </div>
                 </Col>
              </Row>

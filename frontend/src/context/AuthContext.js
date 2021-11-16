@@ -21,6 +21,9 @@ export const AuthProvider = ({children}) => {
     let userRegister = async (e) => {
         e.preventDefault()
 
+        console.log('Unit', e.target.metric.value)
+        console.log('Email', e.target.email.value)
+
         let response = await fetch('/api/accounts/register/', {
             method: "POST",
             headers: {
@@ -28,10 +31,12 @@ export const AuthProvider = ({children}) => {
             },
             'body': JSON.stringify({
                 'email': e.target.email.value,
-                'password': e.target.password.value}),
-                'metric': e.target.metric.value
+                'password': e.target.password.value,
+                'metric': e.target.metric.value})
             }
         )
+
+        
 
         if (response.status == 201) {
             history.push('/login')

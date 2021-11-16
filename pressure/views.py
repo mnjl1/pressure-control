@@ -64,7 +64,6 @@ def getPressure(request, pk):
 @permission_classes([IsAuthenticated])
 def create_pressure(request):
     data = request.data
-    print(data)
     city = data['city']
     units = request.user.metric
     print('Units', units)

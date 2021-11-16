@@ -1,9 +1,6 @@
 from django.contrib import admin
 from .models import CustomUser
 from django.contrib.auth.admin import UserAdmin
-from django.forms import TextInput, Textarea, CharField
-from django import forms
-from django.db import models
 
 
 class UserAdminConfig(UserAdmin):
@@ -14,12 +11,9 @@ class UserAdminConfig(UserAdmin):
     list_display = ('email', 'is_active', 'is_staff')
     fieldsets = (
         (None, {'fields': ('email', 'metric')}),
-        ('Permissions', {'fields': ('is_staff', 'is_active')}),
-        # ('Personal', {'fields': ('about',)}),
+        ('Permissions', {'fields': ('is_staff', 'is_active')})
     )
-    # formfield_overrides = {
-    #     models.TextField: {'widget': Textarea(attrs={'rows': 20, 'cols': 60})},
-    # }
+    
     add_fieldsets = (
         (None, {
             'classes': ('wide',),
@@ -27,5 +21,18 @@ class UserAdminConfig(UserAdmin):
          ),
     )
 
+
+from rest_framework_simplejwt.token_blacklist import models
+from rest_framework_simplejwt.token_blacklist.admin import OutstandingTokenAdmin
+
+
+class NewOutstandingTokenAdmin(OutstandingTokenAdmin):
+
+    def has_delete_permission(self, *args, **kwargs):
+        return True
+
+
+admin.site.unregister(models.OutstandingToken)
+admin.site.register(models.OutstandingToken, NewOutstandingTokenAdmin)
 
 admin.site.register(CustomUser, UserAdminConfig)

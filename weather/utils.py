@@ -5,6 +5,9 @@ from .models import Weather
 from config.settings import WEATHER_KEY
 
 def get_weather(city, units):
+    """
+    Get weather from OpenWeather Api
+    """
 
     url = f'http://api.openweathermap.org/data/2.5/weather?q={city}&units={units}&appid={WEATHER_KEY}'
     
@@ -16,6 +19,10 @@ def get_weather(city, units):
 
 
 def convert_weather(weather_now):
+    """
+    Select special data from weather data
+    and return Weather object for current measurement
+    """
     new_weather = Weather(city=weather_now['name'],
                           description=weather_now['weather'][0]['description'],
                           temperature=weather_now['main']['temp'],
