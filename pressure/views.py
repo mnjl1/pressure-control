@@ -5,6 +5,7 @@ from rest_framework.permissions import IsAuthenticated
 from .models import BloodPressure
 from .serializers import BloodPressureSerializer
 from weather.utils import get_weather, convert_weather
+from .utils import average_diastolic_pressure, average_systolic_pressure
 
 @api_view(['GET'])
 def getRoutes(request):
@@ -48,8 +49,15 @@ def getRoutes(request):
 def getPressureList(request):
     user = request.user
     pressure_list = BloodPressure.objects.filter(person=user)
-    serialiser = BloodPressureSerializer(pressure_list, many=True)
-    return Response(serialiser.data)
+    systolic_pressure_list = [p.systolic_pressure for p in pressure_list]
+    diastolic_pressure_list =[p.diastolic_pressure for p in pressure_list]
+    serialiser = (BloodPressureSerializer(pressure_list, many=True))
+    response = [[serialiser.data], ]
+    avr_sys = ('avr_systolic', str(average_systolic_pressure(systolic_pressure_list)))
+    avr_dias = ('avr_duastolic', str(average_diastolic_pressure(diastolic_pressure_list)))
+    response.append(avr_sys)
+    response.append(avr_dias)
+    return Response(response)
 
 
 @api_view(['GET'])
@@ -101,3 +109,8 @@ def delete_pressure(request, pk):
     pressure = BloodPressure.objects.get(id=pk)
     pressure.delete()
     return Response('Pressure was deleted')
+
+@api_view(['GET'])
+@permission_classes([IsAuthenticated])
+def get_average_pressure(request, pk):
+    pass

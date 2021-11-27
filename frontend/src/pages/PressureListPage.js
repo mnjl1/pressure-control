@@ -7,6 +7,8 @@ import AuthContext from '../context/AuthContext'
 const PressureListPage = () => {
     let {authTokens, logoutUser} = useContext(AuthContext)
     let [pressureList, setPressureList] = useState([])
+    let [avrSystolic, setAvrSystolic] = useState([])
+    let [avrDiastolic, setAvrDiastolic] = useState([])
 
     useEffect(() => {
         getPressureList()
@@ -22,10 +24,12 @@ const PressureListPage = () => {
         })
 
         let data = await response.json()
-        console.log('Data', data)
+        console.log('Data[0]', data[1])
 
         if (response.status === 200) {
-            setPressureList(data);
+            setPressureList(data[0][0]);
+            setAvrSystolic(data[1][1]);
+            setAvrDiastolic(data[2][1])
         }else if (response.statusText === 'Unauthorized') {
             logoutUser()
         } 
@@ -38,11 +42,18 @@ const PressureListPage = () => {
                 <h2 className="pressure-list-title">&#9825; Total Notes:</h2>
                 <p className="presssure-list-count">{pressureList.length}</p>
             </div>
+            <div>
+                <p>Average Systolic: {avrSystolic} | Average Distolic: {avrDiastolic}</p>
+            </div>
 
             <div className='pressure-list-list'>
-                {pressureList.map((pressure, index) => (
+
+                {
+                    pressureList.map((pressure, index) => (
+                        
                     <ListItem key={index} pressure={pressure}/>
                 ))}
+
             </div>
             <AddButton />
         </div>
