@@ -47,6 +47,9 @@ def getRoutes(request):
 @api_view(['GET'])
 @permission_classes([IsAuthenticated])
 def getPressureList(request):
+    """
+    Displaying all the records from database by logged in user. Calculated average pressure is transfered too.
+    """
     user = request.user
     pressure_list = BloodPressure.objects.filter(person=user)
     systolic_pressure_list = [p.systolic_pressure for p in pressure_list]
@@ -63,6 +66,9 @@ def getPressureList(request):
 @api_view(['GET'])
 @permission_classes([IsAuthenticated])
 def getPressure(request, pk):
+    """
+    Fetching specific data by user id
+    """
     pressure = BloodPressure.objects.get(id=pk)
     serialiser = BloodPressureSerializer(pressure, many=False)
     return Response(serialiser.data)
@@ -71,6 +77,9 @@ def getPressure(request, pk):
 @api_view(['POST'])
 @permission_classes([IsAuthenticated])
 def create_pressure(request):
+    """
+    Creates new pressure record with fetched weather info
+    """
     data = request.data
     city = data['city']
     units = request.user.metric
@@ -95,6 +104,9 @@ def create_pressure(request):
 @api_view(['PUT'])
 @permission_classes([IsAuthenticated])
 def update_pressure(request, pk):
+    """
+    Edit pressure data fetched by user id
+    """
     data = request.data
     pressure = BloodPressure.objects.get(id=pk)
     serializer = BloodPressureSerializer(instance=pressure, data=data)
@@ -106,11 +118,9 @@ def update_pressure(request, pk):
 @api_view(['DELETE'])
 @permission_classes([IsAuthenticated])
 def delete_pressure(request, pk):
+    """
+    Delet pressure record by user id
+    """
     pressure = BloodPressure.objects.get(id=pk)
     pressure.delete()
     return Response('Pressure was deleted')
-
-@api_view(['GET'])
-@permission_classes([IsAuthenticated])
-def get_average_pressure(request, pk):
-    pass

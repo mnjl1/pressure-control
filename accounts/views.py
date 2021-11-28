@@ -7,6 +7,9 @@ from rest_framework.permissions import AllowAny
 
 
 class CustomUserCreate(APIView):
+    """
+    Create custom user
+    """
     permission_classes = [AllowAny]
 
     def post(self, request, format='json'):
@@ -22,6 +25,9 @@ class CustomUserCreate(APIView):
 
 
 class BlacklistTokenUpdateView(APIView):
+    """
+    Handle JWT token black list
+    """
     permission_classes = [AllowAny]
     authentication_classes = ()
 
