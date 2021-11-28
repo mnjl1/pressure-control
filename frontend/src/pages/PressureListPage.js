@@ -24,7 +24,6 @@ const PressureListPage = () => {
         })
 
         let data = await response.json()
-        console.log('Data[0]', data[1])
 
         if (response.status === 200) {
             setPressureList(data[0][0]);
@@ -41,9 +40,9 @@ const PressureListPage = () => {
             <div className='pressure-list-header'>
                 <h2 className="pressure-list-title">&#9825; Total Notes:</h2>
                 <p className="presssure-list-count">{pressureList.length}</p>
-            </div>
-            <div>
-                <p>Average Systolic: {avrSystolic} | Average Distolic: {avrDiastolic}</p>
+                <p className="presssure-list-count">
+                Average Systolic: {avrSystolic} | Average Distolic: {avrDiastolic}
+                </p>
             </div>
 
             <div className='pressure-list-list'>
