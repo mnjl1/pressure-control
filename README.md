@@ -15,10 +15,14 @@ Web application where every registered user can track Systolic/Diastolic blood p
   Then you can see and compare how your blood pressure depends on weather or atmosphere pressure.
 
 
-## Distinctiveness and Complexity.
+# Distinctiveness and Complexity:
+
+## Technologies
+- Drango Rest Framework
+- React.js
 - Django-auth Registration,
 - JWT Token Authorization
-- Docker,
+- Docker
 - Environment variables for production and more security (environs https://github.com/sloria/environs),
 - Openweather API,
 
@@ -28,23 +32,37 @@ The Blood Pressure Tracker consists of three apps, config and frontend folders.
 ### config project folder:
 Here setting.py file exists.
 #### view.py
- handles JWT token authentication.
+ Handles JWT token authentication.
 
 ### accounts/ app:
-User registration: creating user with BaseUserManager.
-#### view.py
- One Class-based views for creating user
+Responsible for user registration
+### models.py
+ CustomUser class extends BaseUserManager for possibility to register with email as a login.
+ CustomAccountManager class is responsible for creating user and superuser
+ ### serializers.py
+ CustomUserSerializer class. Here I implemented .create() method to save aditional fiels of CustomUser: email and metric system of weather representation.
 
+#### view.py
+ One Class-based view for creating custom user.
+ BlacklistTokenUpdateView class cheks if refreshed JWT token is in black list.
 
 ### weather/ app:
 This app is responsible for fetching weather data from openweather api.
 When user saves his pressure data, the weather from where the user lives is saved too (OneToOne database relationship)
+### models.py
+ Weather class holds basic fields for saving weather info in database
+### serializers.py
+ WeatherSerializer class responsible for serializing all Weather class fields.
 #### utils.py
  Two helper methods. One method fetchs weather data from openweather api and the second processes that data.
  Key moment: on frontend part current user IP and city are being detected and trunsfered with request to backend. Knowing the city we can fetch the weather info with the correct metric system (celsious or fahrenheit are defined with registration).
 
 ### pressure/ app:
 Handles the main functionality. Saving systolic/diastolic pressure for logged in user. The weather is saved accordingly.
+### models.py
+ BloodPressure class holds hold fiels which reflect Systolic/Diastolic pressure. It has ForeignKey relationship with registered CustomUser and OneToOne relationship with Weather class.
+### serializers.py
+ BloodPressureSerializer class serializes Pressure class and Weather class.
 #### utils.py
  helper methods calculating average systolic/diastolic pressure
 #### views.py
@@ -53,7 +71,6 @@ Handles the main functionality. Saving systolic/diastolic pressure for logged in
   - create_pressure creates new pressure record with fetched weather info
   - update_pressure for editing pressure data fetched by user id
   - delete_pressure deletes pressure record by user id
-
 
 
 ### frontend/ folder:
@@ -66,6 +83,17 @@ Each pressure info is split on two parts. Left part is pressure data and the lef
 Above the pressure data list the additional info is displayed: whole number of records, average systolic/diastolic pressure.
 Clicking any pressure record moves user on the edit page where the record can be edited or deleted.
 To create new record the "+" button hovers on the home page at right bottom corner.
+
+### AuthContext.js
+ Here I create AuthProvider to handle user registration, login/logout, refreshing jwt token. And pass  needed function via contextData
+### LoginPage.js
+  Loging User form
+### RegisterPage.js
+  Register User form
+### PressureListPage.js
+ Displays all the user records.
+### PressurePage.js
+  Displays single pressure by id. Here user can edit or delete record.
 
 ## Running app
 ```
