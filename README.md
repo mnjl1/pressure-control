@@ -97,5 +97,5 @@ To create new record the "+" button hovers on the home page at right bottom corn
 
 ## Running app
 ```
-docker-compose run -d --build
+docker-compose up -d --build
 ```
